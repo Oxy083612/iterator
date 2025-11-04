@@ -1,9 +1,10 @@
 package edu.io;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Iterator;
+
+// należy podać trzeci argument w ramach funkcji TextSource.regexIterator() i działa tylko z plikiem
+// w plikach znajduje się przykładowy tekst o nazwie text.txt
+// niestety nie mam pojęcia czemu plik .exe nie działa
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -46,6 +47,36 @@ public class Main {
                     }
                 }
                 break;
+
+            case "s":
+                while((line = br.readLine()) != null){
+                    var it = new TextSource(line).sentenceIterator();
+                    while(it.hasNext()){
+                        System.out.println(it.next());
+                    }
+                }
+                break;
+
+            case "n":
+                while((line = br.readLine()) != null){
+                    var it = new TextSource(line).numberIterator();
+                    while(it.hasNext()){
+                        System.out.println(it.next());
+                    }
+                }
+                break;
+
+            case "r":
+                if(args.length > 2){
+                    while((line = br.readLine()) != null){
+                        var it = new TextSource(line).regexIterator(args[2]);
+                        while(it.hasNext()){
+                            System.out.println(it.next());
+                        }
+                    }
+                } else {
+                    throw new IOException("There's no third argument");
+                }
 
 
         }
